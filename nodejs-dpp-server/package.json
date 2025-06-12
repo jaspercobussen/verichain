@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-dpp-server",
+  "version": "1.0.0",
+  "description": "A Node.js server for the Digital Product Passport application.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "author": "",
+  "license": "ISC"
+}

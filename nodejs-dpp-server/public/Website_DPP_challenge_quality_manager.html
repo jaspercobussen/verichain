@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Product Passport</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f9fafa;
+      color: #1a1a1a;
+      padding: 1rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 960px;
+      margin: auto;
+    }
+
+    .header {
+      background: #101d34;
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 1.2rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .tag {
+      background: #3d4f70;
+      color: white;
+      padding: 0.2rem 0.6rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+    }
+
+    .score-bar {
+      background: #d6f1e3;
+      border-radius: 4px;
+      overflow: hidden;
+      height: 10px;
+      margin-top: 0.5rem;
+    }
+
+    .score {
+      background: #00c875;
+      height: 100%;
+      width: 99.8%;
+    }
+
+    .tabs {
+      display: flex;
+      overflow-x: auto;
+      background: #f0f2f5;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .tab {
+      padding: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      border-bottom: 3px solid #007aff;
+      font-weight: bold;
+      background: white;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 1.5rem;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .product-desc {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .materials {
+      margin-top: 2rem;
+    }
+
+    .material-bar {
+      background: #eee;
+      border-radius: 4px;
+      margin: 0.5rem 0;
+      position: relative;
+    }
+
+    .material-fill {
+      height: 20px;
+      background: #3399ff;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .material-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .header h1 {
+        font-size: 1rem;
+      }
+
+      .tab {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+  <div>
+    <h1>Component Passport</h1>
+    <div class="tags">
+      <div class="tag">High Precision</div>
+      <div class="tag">Cleanroom Grade</div>
+    </div>
+    <div class="score-bar">
+      <div class="score"></div>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <div class="profile-emblem">User: Esmee V.</div>
+  </div>
+</div>
+    </div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showTab(event, 'materials')">Materials</div>
+  <div class="tab" onclick="showTab(event, 'workinstructions')">Work Instructions</div>
+    <div class="tab" onclick="showTab(event, 'damagehistory')">Damage History</div>
+  <div class="tab" onclick="showTab(event, 'risks')">Risks</div>
+  <div class="tab" onclick="showTab(event, 'lifecycle')">Lifecycle</div>
+  <div class="tab" onclick="showTab(event, 'certificates')">Certificates</div>
+  <div class="tab" onclick="showTab(event, 'maintenance')">Maintenance</div>
+  <div class="tab" onclick="showTab(event, 'recycling')">Recycling</div>
+</div>
+
+        <div id="materials" class="tab-content active">
+      <div class="content">
+        <h2>EUV Wafer Stage Precision Motor</h2>
+        <div class="info-grid">
+          <div><strong>Model:</strong> WSPM-2023-XS</div>
+          <div><strong>Manufacturer:</strong> ASML Precision Components</div>
+          <div><strong>Production Date:</strong> 22 February 2023</div>
+          <div><strong>Serial Number:</strong> WSPM-2023-78542169</div>
+          <div><strong>Calibration Until:</strong> 22 February 2024</div>
+        </div>
+        <div class="product-desc">
+          The EUV Wafer Stage Precision Motor is a critical component of ASML’s EUV lithography systems. This motor ensures nanometer-precise positioning of the wafer during the lithography process, which is essential for producing the world’s most advanced semiconductors.
+        </div>
+    
+        <div class="materials">
+          <h3>Material Composition</h3>
+          <div class="material-label">
+            <span>High-grade stainless steel</span><span>42%</span>
+          </div>
+          <div class="material-bar">
+            <div class="material-fill" style="width: 42%; background: #3366cc;"></div>
+          </div>
+    
+          <div class="material-label">
+            <span>Neodymium magnets</span><span>28%</span>
+          </div>
+          <div class="material-bar">
+            <div class="material-fill" style="width: 28%; background: #3399ff;"></div>
+          </div>
+    
+          <div class="material-label">
+            <span>Copper windings</span><span>18%</span>
+          </div>
+          <div class="material-bar">
+            <div class="material-fill" style="width: 18%; background: #66ccff;"></div>
+          </div>
+    
+          <div class="material-label">
+            <span>Ceramic insulation</span><span>12%</span>
+          </div>
+          <div class="material-bar">
+            <div class="material-fill" style="width: 12%; background: #99ccff;"></div>
+          </div>
+        </div>
+    
+        <div class="bom">
+          <h3>Bill of Materials (BOM)</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Item No.</th>
+                <th>Article No.</th>
+                <th>Part Name</th>
+                <th>Material</th>
+                <th>Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>ART-482</td><td>Stainless Steel Frame</td><td>High-grade Stainless Steel</td><td>1</td></tr>
+              <tr><td>2</td><td>ART-193</td><td>Neodymium Magnets</td><td>Neodymium</td><td>5</td></tr>
+              <tr><td>3</td><td>ART-847</td><td>Copper Windings</td><td>Copper</td><td>3</td></tr>
+              <tr><td>4</td><td>ART-562</td><td>Ceramic Insulation</td><td>Ceramic</td><td>2</td></tr>
+              <tr><td>5</td><td>ART-319</td><td>Ball Bearings</td><td>Steel</td><td>8</td></tr>
+              <tr><td>6</td><td>ART-774</td><td>Rotor Shaft</td><td>Alloy Steel</td><td>1</td></tr>
+              <tr><td>7</td><td>ART-215</td><td>Encoder Disk</td><td>Polycarbonate</td><td>1</td></tr>
+              <tr><td>8</td><td>ART-689</td><td>Control PCB</td><td>FR4</td><td>1</td></tr>
+              <tr><td>9</td><td>ART-432</td><td>Power Connector</td><td>Plastic/Copper</td><td>2</td></tr>
+              <tr><td>10</td><td>ART-901</td><td>Cooling Fan</td><td>Plastic</td><td>1</td></tr>
+              <tr><td>11</td><td>ART-154</td><td>Thermal Paste</td><td>Silicone</td><td>1</td></tr>
+              <tr><td>12</td><td>ART-678</td><td>Heat Sink</td><td>Aluminum</td><td>1</td></tr>
+              <tr><td>13</td><td>ART-345</td><td>Mounting Screws</td><td>Steel</td><td>10</td></tr>
+              <tr><td>14</td><td>ART-982</td><td>Protective Cover</td><td>ABS Plastic</td><td>1</td></tr>
+              <tr><td>15</td><td>ART-223</td><td>Wire Harness</td><td>Copper/Plastic</td><td>1</td></tr>
+              <tr><td>16</td><td>ART-711</td><td>Position Sensors</td><td>Silicon</td><td>3</td></tr>
+              <tr><td>17</td><td>ART-509</td><td>Brushless Motor</td><td>Mixed Materials</td><td>1</td></tr>
+              <tr><td>18</td><td>ART-364</td><td>Sealing Gasket</td><td>Rubber</td><td>2</td></tr>
+              <tr><td>19</td><td>ART-876</td><td>Alignment Pins</td><td>Steel</td><td>6</td></tr>
+              <tr><td>20</td><td>ART-492</td><td>Vibration Dampers</td><td>Rubber</td><td>4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+        <div id="workinstructions" class="tab-content">
+        <div class="content">
+            <h3>Work Instructions Video</h3>
+        <iframe width="470" height="300" src="https://www.youtube.com/embed/SCMqZhlEMdc?si=Md38GwSev8PxI-um" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    </div>
+    <style>
+      .bom {
+        margin-top: 2rem;
+      }
+    
+      .bom table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+      }
+    
+      .bom th, .bom td {
+        border: 1px solid #ddd;
+        padding: 0.5rem;
+        text-align: left;
+      }
+    
+      .bom th {
+        background: #f0f2f5;
+        font-weight: bold;
+      }
+    
+      .bom tr:nth-child(even) {
+        background: #f9fafa;
+      }
+    </style>
+<div id="damagehistory" class="tab-content">
+  <div class="content">
+    <h3>Damage History</h3>
+    <p>Below is a record of reported damages for this component:</p>
+    <table id="damageTable">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Reported By</th>
+          <th>Picture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dummy damage row -->
+        <tr>
+          <td>2025-06-01</td>
+          <td>Scratch on the stainless steel frame</td>
+          <td>John D.</td>
+          <td><img src="https://via.placeholder.com/100" alt="Damage Picture" class="damage-img"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Form for adding new damage -->
+    <div class="add-damage-form">
+      <h4>Add New Damage</h4>
+      <label for="damageDescription">Description:</label>
+      <input type="text" id="damageDescription" placeholder="Enter damage description" required>
+      
+      <label for="reportedBy">Reported By:</label>
+      <input type="text" id="reportedBy" placeholder="Enter reporter's name" required>
+      
+      <label for="damagePicture">Upload Picture:</label>
+      <input type="file" id="damagePicture" accept="image/*" required>
+      
+      <button onclick="addDamage()" class="add-damage-btn">Add Damage</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #damageTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+
+  #damageTable th, #damageTable td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+    text-align: left;
+  }
+
+  #damageTable th {
+    background: #f0f2f5;
+    font-weight: bold;
+  }
+
+  #damageTable tr:nth-child(even) {
+    background: #f9fafa;
+  }
+
+  .damage-img {
+    width: 100px;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .add-damage-form {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f9fafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .add-damage-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .add-damage-form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .add-damage-btn {
+    padding: 0.5rem 1rem;
+    background: #007aff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .add-damage-btn:hover {
+    background: #005bb5;
+  }
+</style>
+
+<script>
+  function addDamage() {
+    const description = document.getElementById('damageDescription').value.trim();
+    const reportedBy = document.getElementById('reportedBy').value.trim();
+    const pictureInput = document.getElementById('damagePicture');
+    const pictureFile = pictureInput.files[0];
+
+    if (!description || !reportedBy || !pictureFile) {
+      alert('Please fill in all fields and upload a picture.');
+      return;
+    }
+
+    const table = document.getElementById('damageTable').querySelector('tbody');
+    const newRow = document.createElement('tr');
+
+    // Create a URL for the uploaded picture
+    const pictureURL = URL.createObjectURL(pictureFile);
+
+    // Add new damage entry with user input and picture
+    newRow.innerHTML = `
+      <td>${new Date().toISOString().split('T')[0]}</td>
+      <td>${description}</td>
+      <td>${reportedBy}</td>
+      <td><img src="${pictureURL}" alt="Damage Picture" class="damage-img"></td>
+    `;
+
+    table.appendChild(newRow);
+
+    // Clear input fields after adding the entry
+    document.getElementById('damageDescription').value = '';
+    document.getElementById('reportedBy').value = '';
+    pictureInput.value = '';
+  }
+</script>
+<div id="risks" class="tab-content">
+  <div class="content">
+    <h3>Known Risks</h3>
+    <p>Below are some known risks that have occurred in the past:</p>
+    <div class="risks">
+      <div class="risk">
+        <img src="https://img.icons8.com/ios-filled/50/fa314a/error.png" alt="Warning Icon" class="risk-icon">
+        <div class="risk-details">
+          <h4>Overheating of Motor</h4>
+          <p><strong>Date:</strong> 2025-05-15</p>
+          <p><strong>Description:</strong> The motor overheated during prolonged operation, causing temporary shutdown.</p>
+        </div>
+      </div>
+      <div class="risk">
+        <img src="https://img.icons8.com/ios-filled/50/fa314a/error.png" alt="Warning Icon" class="risk-icon">
+        <div class="risk-details">
+          <h4>Magnet Misalignment</h4>
+          <p><strong>Date:</strong> 2025-03-10</p>
+          <p><strong>Description:</strong> Misalignment of neodymium magnets caused reduced precision in wafer positioning.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .risks {
+    margin-top: 1.5rem;
+  }
+
+  .risk {
+    display: flex;
+    align-items: flex-start;
+    background: #f9fafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .risk-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 1rem;
+  }
+
+  .risk-details h4 {
+    margin: 0 0 0.5rem;
+    color: #fa314a;
+  }
+
+  .risk-details p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+  }
+</style>
+
+  <div id="lifecycle" class="tab-content">
+  <div class="content">
+    <h3>Lifecycle Information</h3>
+    <p>The lifecycle of the EUV Wafer Stage Precision Motor is designed to maximize efficiency and sustainability. Below is a breakdown of the lifecycle stages and supplier contributions:</p>
+
+
+    <h4>Key Suppliers</h4>
+    <div class="suppliers">
+      <div class="supplier">
+        <h5>VDL ETG</h5>
+        <p>VDL Enabling Technologies Group (ETG) specializes in high-precision manufacturing and assembly. They supply critical components such as the stainless steel frame and rotor shafts for the EUV Wafer Stage Precision Motor.</p>
+        <ul>
+          <li><strong>Location:</strong> Eindhoven, Netherlands</li>
+          <li><strong>Specialization:</strong> High-precision manufacturing</li>
+          <li><strong>Contribution:</strong> Stainless steel frame, rotor shafts</li>
+        </ul>
+      </div>
+      <div class="supplier">
+        <h5>Neways</h5>
+        <p>Neways Electronics provides advanced electronic systems and assemblies. They supply the control PCBs and wire harnesses used in the EUV Wafer Stage Precision Motor.</p>
+        <ul>
+          <li><strong>Location:</strong> Son, Netherlands</li>
+          <li><strong>Specialization:</strong> Electronics manufacturing</li>
+          <li><strong>Contribution:</strong> Control PCBs, wire harnesses</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .suppliers {
+    margin-top: 2rem;
+  }
+
+  .supplier {
+    background: #f9fafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .supplier h5 {
+    margin-bottom: 0.5rem;
+    color: #007aff;
+  }
+
+  .supplier p {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .supplier ul {
+    list-style: none;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+
+  .supplier ul li {
+    margin-bottom: 0.5rem;
+  }
+</style>
+    <div id="certificates" class="tab-content">
+  <div class="content">
+    <h3>Certificates</h3>
+    <p>The EUV Wafer Stage Precision Motor complies with the following certifications to ensure quality, safety, and sustainability:</p>
+    
+    <div class="certificates">
+      <div class="certificate">
+        <h4>ISO 9001:2015</h4>
+        <p>Ensures that the manufacturing process meets international quality management standards.</p>
+      </div>
+      <div class="certificate">
+        <h4>ISO 14001:2015</h4>
+        <p>Demonstrates compliance with environmental management standards, minimizing environmental impact.</p>
+      </div>
+      <div class="certificate">
+        <h4>RoHS Compliance</h4>
+        <p>Guarantees that the product is free from hazardous substances, adhering to EU environmental directives.</p>
+      </div>
+      <div class="certificate">
+        <h4>CE Marking</h4>
+        <p>Indicates conformity with health, safety, and environmental protection standards for products sold within the European Economic Area (EEA).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .certificates {
+    margin-top: 1.5rem;
+  }
+
+  .certificate {
+    background: #f9fafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .certificate h4 {
+    margin-bottom: 0.5rem;
+    color: #007aff;
+  }
+
+  .certificate p {
+    font-size: 0.9rem;
+    color: #333;
+  }
+</style>
+<div id="maintenance" class="tab-content">
+  <div class="content">
+    <h3>Maintenance Information</h3>
+    <p>Proper maintenance of the EUV Wafer Stage Precision Motor ensures optimal performance and longevity. Follow the guidelines below:</p>
+    
+    <div class="maintenance-tasks">
+      <div class="task">
+        <h4>Regular Cleaning</h4>
+        <p>Clean the motor components with a lint-free cloth and isopropyl alcohol every 6 months to prevent dust accumulation.</p>
+      </div>
+      <div class="task">
+        <h4>Lubrication</h4>
+        <p>Apply high-grade lubricant to moving parts annually to reduce wear and tear.</p>
+      </div>
+      <div class="task">
+        <h4>Calibration</h4>
+        <p>Ensure the motor is recalibrated by certified technicians every 12 months to maintain precision.</p>
+      </div>
+      <div class="task">
+        <h4>Inspection</h4>
+        <p>Conduct a thorough inspection of all components every 2 years to identify and replace worn-out parts.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .maintenance-tasks {
+    margin-top: 1.5rem;
+  }
+
+  .task {
+    background: #f9fafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .task h4 {
+    margin-bottom: 0.5rem;
+    color: #007aff;
+  }
+
+  .task p {
+    font-size: 0.9rem;
+    color: #333;
+  }
+</style>
+    </div>
+    <div id="recycling" class="tab-content">
+        <div class="content">
+            <h3>Recycling Information</h3>
+            <p>The EUV Wafer Stage Precision Motor is designed with sustainability in mind. Below is the breakdown of recyclable materials:</p>
+            
+            <div class="materials">
+            <h4>Recyclable Materials</h4>
+            <div class="material-label">
+                <span>High-grade stainless steel</span><span>42%</span>
+            </div>
+            <div class="material-bar">
+                <div class="material-fill" style="width: 42%; background: #3366cc;"></div>
+            </div>
+
+            <div class="material-label">
+                <span>Neodymium magnets</span><span>28%</span>
+            </div>
+            <div class="material-bar">
+                <div class="material-fill" style="width: 28%; background: #3399ff;"></div>
+            </div>
+
+            <div class="material-label">
+                <span>Copper windings</span><span>18%</span>
+            </div>
+            <div class="material-bar">
+                <div class="material-fill" style="width: 18%; background: #66ccff;"></div>
+            </div>
+
+            <div class="material-label">
+                <span>Ceramic insulation</span><span>12%</span>
+            </div>
+            <div class="material-bar">
+                <div class="material-fill" style="width: 12%; background: #99ccff;"></div>
+            </div>
+            </div>
+
+            <p style="margin-top: 1.5rem;">
+            For proper recycling, please follow the guidelines provided by your local recycling authority or contact the manufacturer for more details.
+            </p>
+        </div>
+    </div>  
+        </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(event, id) {
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        event.target.classList.add('active');
+        document.getElementById(id).classList.add('active');
+        }
+    </script>
+
+    </body>
+    </html>

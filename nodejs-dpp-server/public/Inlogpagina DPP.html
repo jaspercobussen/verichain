@@ -1,0 +1,53 @@
+<!-- filepath: /nodejs-dpp-server/nodejs-dpp-server/public/Inlogpagina DPP.html -->
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Product Passport - Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 2rem; }
+    #loginContainer { max-width: 320px; margin: 100px auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input { display: block; width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 4px; }
+    button { width: 100%; padding: 0.6rem; background: #007aff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    #loginError { color: red; text-align: center; margin-top: 0.5rem; }
+    iframe { width: 100%; height: 100vh; border: none; }
+  </style>
+</head>
+<body>
+  <div id="loginContainer">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Gebruikersnaam">
+    <input type="password" id="password" placeholder="Wachtwoord">
+    <button onclick="login()">Inloggen</button>
+    <div id="loginError"></div>
+  </div>
+
+  <div id="iframeContainer" style="display:none">
+    <iframe id="dppFrame" src="Website DPP challenge.html"></iframe>
+  </div>
+
+    <script>
+    const users = {
+      erik:   { pass: 'erik123', role: 'logistiek_medewerker', redirect: 'Website_DPP_challenge_logistics_employee.html' },
+      esmee:  { pass: 'esmee123', role: 'quality_manager', redirect: 'Website_DPP_challenge_quality_manager.html' },
+      frans:  { pass: 'frans123', role: 'directeur', redirect: 'Website_DPP_challenge_ceo.html' }
+    };
+  
+    function login() {
+      const user = document.getElementById('username').value.trim().toLowerCase();
+      const pwd = document.getElementById('password').value.trim();
+      const errorBox = document.getElementById('loginError');
+  
+      if (!users[user] || users[user].pass !== pwd) {
+        errorBox.textContent = 'Ongeldige gebruikersnaam of wachtwoord';
+        return;
+      }
+  
+      // Login successful
+      const redirectUrl = users[user].redirect; // Get the redirect URL based on the role
+      window.location.href = redirectUrl; // Redirect to the appropriate HTML file
+    }
+  </script>
+</body>
+</html>
